@@ -10,6 +10,7 @@ namespace GST_Badge_System.Model
         public User Sender { get; set; }
         public User Receiver { get; set; }
         public Badge Badge { get; set; }
+        public string Badge_Comment { get; set; }
         public DateTime BTrans_Date { get; set; }
     }
 }

@@ -7,10 +7,10 @@ namespace GST_Badge_System.Model
 {
     public class Badge
     {
-        public string Badge_ID { get; set; }
+        public string Badge_Id { get; set; }
         public string Badge_Name { get; set; }
         public string Badge_Descript { get; set; }
-        public string Badge_ActiveDate { get; set; }
+        public string Badge_ActivateDate { get; set; }
         public string Badge_RetireDate { get; set; }
         public byte[] Badge_Image { get; set; }
 
