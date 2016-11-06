@@ -77,11 +77,10 @@ namespace GST_Badge_System.DAO
         public int uploadUsers()
         {
             var connectionString = @"Data Source=TUYISHIME\SQLEXPRESS;Initial Catalog=gst_badge_system;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            //var connectionString = ConfigurationManager.ConnectionStrings["Test"].ConnectionString;
+            
             using (var conn = new SqlConnection(connectionString))
             {
                 string name, email, user_type;
-                string sql = @"INSERT INTO Users (User_Name, User_Email, User_Type) VALUES ( '@name', '@email', @'user_type')";
 
                 foreach(User user in importUsers())
                 {
@@ -89,7 +88,8 @@ namespace GST_Badge_System.DAO
                     email = user.User_Email;
                     user_type = "stu";
 
-
+                    string sql = @"INSERT INTO Users (User_Name, User_Email, User_Type) VALUES ( @name , @email , @user_type )";
+                    var result = conn.Execute(sql, new { name, email, user_type });
                 }
 
                 return 1;
