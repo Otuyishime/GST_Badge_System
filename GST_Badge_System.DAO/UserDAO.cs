@@ -80,6 +80,17 @@ namespace GST_Badge_System.DAO
             //var connectionString = ConfigurationManager.ConnectionStrings["Test"].ConnectionString;
             using (var conn = new SqlConnection(connectionString))
             {
+                string name, email, user_type;
+                string sql = @"INSERT INTO Users (User_Name, User_Email, User_Type) VALUES ( '@name', '@email', @'user_type')";
+
+                foreach(User user in importUsers())
+                {
+                    name = user.User_Name;
+                    email = user.User_Email;
+                    user_type = "stu";
+
+
+                }
 
                 return 1;
             }
