@@ -9,7 +9,7 @@ namespace GST_Badge_System.DAO
     /*
      This class will be used to read/write all the badge data from the data database
      */
-    public class BadgeDAO : IcrudOperations<Badge>
+    public class BadgeDAO //: IcrudOperations<Badge>
     {
         public Badge create(Badge element)
         {
@@ -34,6 +34,16 @@ namespace GST_Badge_System.DAO
         public Badge update(Badge element)
         {
             throw new NotImplementedException();
+        }
+
+        public int ImportBadges()
+        {
+            return 1;
+        }
+
+        public int uploadBadges()
+        {
+            return 1;
         }
     }
 }

@@ -10,11 +10,12 @@ namespace GST_Badge_System.Model
         public string Badge_Id { get; set; }
         public string Badge_Name { get; set; }
         public string Badge_Descript { get; set; }
-        public string Badge_ActivateDate { get; set; }
-        public string Badge_RetireDate { get; set; }
+        public string Badge_Notes { get; set; }
+        public DateTime Badge_ActivateDate { get; set; }
+        public DateTime Badge_RetireDate { get; set; }
         public byte[] Badge_Image { get; set; }
 
-        public string Badge_Status { get; set; }
+        public BadgeStatus Badge_Status { get; set; }
         public BadgeType BadgeType { get; set; }
         public BadgeGiveType BadgeGiveType { get; set; }
     }
