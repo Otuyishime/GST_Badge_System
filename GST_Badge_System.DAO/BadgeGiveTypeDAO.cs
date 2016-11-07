@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Dapper;
 using GST_Badge_System.Model;
 using System.Data;
@@ -8,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace GST_Badge_System.DAO
 {
-    class BadgeGiveTypeDAO
+    public class BadgeGiveTypeDAO
     {
         private string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=gst_badge_system;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
@@ -34,7 +33,7 @@ namespace GST_Badge_System.DAO
 
             using( var conn = new SqlConnection(connectionString))
             {
-                string sql = @"INSERT INTO Users (BGT_Name, BGT_Descript) VALUES ( @name , @descript )";
+                string sql = @"INSERT INTO BadgeGiveType (BGT_Name, BGT_Descript) VALUES ( @name , @descript )";
                 return conn.Execute(sql, new { name, descript });
             }
 
