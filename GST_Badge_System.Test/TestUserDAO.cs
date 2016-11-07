@@ -5,7 +5,7 @@ using GST_Badge_System.DAO;
 namespace GST_Badge_System.Test
 {
     [TestClass]
-    public class UnitTest1
+    public class TestUserDAO
     {
         [TestMethod]
         public void TestImportUsers()
@@ -44,16 +44,25 @@ namespace GST_Badge_System.Test
         }
 
         [TestMethod]
-        public void TestretrieveWithSentBadges()
+        public void TestRetrieveUserReceivedBadges()
         {
             string expected = "Olivier Tuyishime";
-            int expectedCnt = 1;
 
             UserDAO userdao = new UserDAO();
-            //string actual = userdao.retrieveWithSentBadges("1")[0].Sender.User_Name;
-            int actualCnt = userdao.retrieveWithSentBadges("1").Count;
+            string actual = userdao.retrieveUserReceivedBadges("1")[0].Sender.User_Name;
 
-            Assert.AreEqual(expectedCnt, actualCnt);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestRetrieveUserSentBadges()
+        {
+            string expected = "Jesus Arredondo";
+
+            UserDAO userdao = new UserDAO();
+            string actual = userdao.retrieveUserSentBadges("58")[0].Receiver.User_Name;
+
+            Assert.AreEqual(expected, actual);
         }
     }
 }

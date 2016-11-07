@@ -88,6 +88,35 @@ namespace GST_Badge_System.DAO
             }
         }
 
+        // retrieve user with sent badges
+        public List<BadgeTransaction> retrieveUserSentBadges(string user_Id)
+        {
+            if (String.IsNullOrEmpty(user_Id))
+            {
+                throw new Exception("Failed to retrieve user. Wrong Name.");
+            }
+
+            using (var conn = new SqlConnection(connectionString))
+            {
+                string sql = @"SELECT Badge.*, Users.*, BadgeTransaction.Badge_Comment, BadgeTransaction.BTrans_Date 
+                                From Badge, Users, BadgeTransaction,
+                                (SELECT BadgeTransaction.* FROM BadgeTransaction WHERE BadgeTransaction.Sender = @user_Id) AS A 
+                                where Badge.Badge_Id = A.Badge_Id AND Users.User_Id = A.Reciever AND Badge.Badge_Id = BadgeTransaction.Badge_Id";
+
+                List<BadgeTransaction> result = conn.Query<Badge, User, BadgeTransaction, BadgeTransaction>(sql,
+                    (b, ureciev, bt) => {
+                        bt.Badge = b;
+                        bt.Receiver = ureciev;
+
+                        return bt;
+                    }, new { user_Id },
+                    splitOn: "User_Id, Badge_Comment"
+                    ).AsList();
+
+                return result;
+            }
+        }
+
         // update the user information
         public User update(User user)
         {
