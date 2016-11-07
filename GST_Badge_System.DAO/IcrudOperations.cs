@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GST_Badge_System.DAO
 {
@@ -11,15 +9,15 @@ namespace GST_Badge_System.DAO
         T create(T element);
 
         // retrieve
-        T retrieve(object id);
+        T retrieve(string id);
 
         // update
         T update(T element);
 
         // delete
-        T delete(object id);
+        int delete(string id);
 
         // list
-        T list();
+        List<T> list();
     }
 }

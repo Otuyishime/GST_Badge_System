@@ -2,6 +2,7 @@
 using System;
 using System.Data.SqlClient;
 using Dapper;
+using System.Collections.Generic;
 
 namespace GST_Badge_System.DAO
 {
@@ -15,17 +16,17 @@ namespace GST_Badge_System.DAO
             throw new NotImplementedException();
         }
 
-        public Badge delete(object id)
+        public int delete(string id)
         {
             throw new NotImplementedException();
         }
 
-        public Badge list()
+        public List<Badge> list()
         {
             throw new NotImplementedException();
         }
 
-        public Badge retrieve(object id)
+        public Badge retrieve(string id)
         {
             throw new NotImplementedException();
         }

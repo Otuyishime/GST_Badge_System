@@ -31,5 +31,29 @@ namespace GST_Badge_System.Test
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void TestListUsers()
+        {
+            string expected = "Andy Harbert";
+
+            UserDAO userdao = new UserDAO();
+            string actual = userdao.list()[userdao.list().Count - 1].User_Name;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestretrieveWithSentBadges()
+        {
+            string expected = "Olivier Tuyishime";
+            int expectedCnt = 1;
+
+            UserDAO userdao = new UserDAO();
+            //string actual = userdao.retrieveWithSentBadges("1")[0].Sender.User_Name;
+            int actualCnt = userdao.retrieveWithSentBadges("1").Count;
+
+            Assert.AreEqual(expectedCnt, actualCnt);
+        }
     }
 }
