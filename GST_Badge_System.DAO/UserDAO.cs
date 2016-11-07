@@ -60,7 +60,7 @@ namespace GST_Badge_System.DAO
         }
 
         // retrieve user with received badges
-        public List<BadgeTransaction> retrieveWithSentBadges(string user_Id)
+        public List<BadgeTransaction> retrieveUserReceivedBadges(string user_Id)
         {
             if (String.IsNullOrEmpty(user_Id))
             {
@@ -68,12 +68,7 @@ namespace GST_Badge_System.DAO
             }
             
             using (var conn = new SqlConnection(connectionString))
-            {
-                // get the user with ID
-                //                string sql = @"SELECT Badge.*, Users.* From Badge, Users, 
-                //(SELECT BadgeTransaction.* FROM BadgeTransaction WHERE BadgeTransaction.Reciever = @name) AS A 
-                //where Badge.Badge_Id = A.Badge_Id AND Users.User_Id = A.Sender";
-
+            { 
                 string sql = @"SELECT Badge.*, Users.*, BadgeTransaction.Badge_Comment, BadgeTransaction.BTrans_Date 
                                 From Badge, Users, BadgeTransaction,
                                 (SELECT BadgeTransaction.* FROM BadgeTransaction WHERE BadgeTransaction.Reciever = @user_Id) AS A 
