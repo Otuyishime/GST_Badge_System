@@ -7,7 +7,6 @@ namespace GST_Badge_System.Model
 {
     public class BadgeType
     {
-        public string BT_Id { get; set; }
         public string BT_Descript { get; set; }
         public string BT_Name { get; set; }
     }
