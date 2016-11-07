@@ -118,9 +118,9 @@ namespace GST_Badge_System.DAO
         }
 
         // update the user information
-        public User update(User user)
+        public User update(User user, string oldUserName)
         {
-            if (user == null)
+            if (user == null || String.IsNullOrEmpty(oldUserName))
             {
                 throw new Exception("User update failed, the passed user is null!");
             }
@@ -129,11 +129,11 @@ namespace GST_Badge_System.DAO
             string email = user.User_Email;
             string user_type = user.User_Type;
 
-            string sql = @"UPDATE TABLE Users SET User_Name = @name, User_Email = @email, User_Type = @user_type";
+            string sql = @"UPDATE TABLE Users SET User_Name = @name, User_Email = @email, User_Type = @user_type WHERE User_Name = @oldUserName";
 
             using (var conn = new SqlConnection(connectionString))
             {
-                var result = conn.Execute(sql: sql);
+                var result = conn.Execute(sql, new { name, email, user_type, oldUserName});
                 return new User { User_Name = name, User_Email = email, User_Type = user_type };
             }
         }

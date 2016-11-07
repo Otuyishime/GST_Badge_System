@@ -53,6 +53,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="TestBadgeDAO.cs" />
+    <Compile Include="TestBadgeGiveTypeDAO.cs" />
+    <Compile Include="TestBadgeStatusDAO.cs" />
+    <Compile Include="TestBadgeTypeDAO.cs" />
     <Compile Include="TestUserDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
