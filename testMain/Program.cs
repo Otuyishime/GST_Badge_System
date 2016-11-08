@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GST_Badge_System.DAO;
-using GST_Badge_System.Model;
 
 namespace testMain
 {
@@ -12,10 +11,9 @@ namespace testMain
     {
         static void Main(string[] args)
         {
-            UserDAO userdao = new UserDAO();
-            string actual = userdao.retrieveWithSentBadges("1")[0].Sender.User_Name;
-
-            Console.WriteLine("Name-sender: " + actual);
+            BadgeDAO badgedao = new BadgeDAO();
+            int actual = badgedao.ImportBadges(@"C:\Users\olivi\OneDrive\Documents\Intro Software Tools\Projects\GST_Badge_System\GST_Badge_System\GST_Badge_System.DAO\Data\StaffStudentBadges.csv").Count;
+            Console.WriteLine("Num elements: " + actual);
         }
     }
 }

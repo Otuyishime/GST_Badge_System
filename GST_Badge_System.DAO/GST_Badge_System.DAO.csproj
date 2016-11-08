@@ -62,6 +62,8 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Data\BadgeSystemPeople.csv" />
+    <None Include="Data\FacultyStudentBadges.csv" />
+    <None Include="Data\StaffStudentBadges.csv" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
