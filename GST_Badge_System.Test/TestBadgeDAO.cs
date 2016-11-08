@@ -16,5 +16,16 @@ namespace GST_Badge_System.Test
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void TestListBadges()
+        {
+            int expected = 46;
+
+            DAO.BadgeDAO bdao = new DAO.BadgeDAO();
+            int actual = bdao.list().Count;
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

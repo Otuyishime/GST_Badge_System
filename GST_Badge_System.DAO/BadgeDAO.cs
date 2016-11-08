@@ -43,7 +43,23 @@ namespace GST_Badge_System.DAO
 		{
 			using (IDbConnection conn = new SqlConnection(connectionString))
 			{
-				return conn.Query<Badge>("select * from Badge").AsList();
+				string sql = @"SELECT DISTINCT Badge.Badge_Image, Badge.Badge_RetireDate, Badge.Badge_ActivateDate, Badge.Badge_Id, 
+										Badge_Name, Badge.Badge_Descript, Badge.Badge_Notes,BadgeType.*,BadgeGiveType.*, BadgeStatus.* 
+								FROM Badge, BadgeGiveType, BadgeStatus, BadgeType
+								WHERE Badge.BadgeGiveType = BadgeGiveType.BGT_Id AND Badge.BadgeStatus = BadgeStatus.BS_Id 
+								AND Badge.BadgeStatus = BadgeType.BT_Id";
+
+				var result = conn.Query<Badge, BadgeType, BadgeGiveType, BadgeStatus, Badge>(sql,
+					(b,bt,bgt,bs) => {
+						b.BadgeType = bt;
+						b.BadgeGiveType = bgt;
+						b.Badge_Status = bs;
+
+						return b;
+					},
+					splitOn:"BT_Name, BGT_Name, BS_Name"
+					).AsList();
+				return result;
 			}
 		}
 

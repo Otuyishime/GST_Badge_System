@@ -19,24 +19,22 @@ namespace GST_Badge_System.DAO
                 !String.IsNullOrEmpty(badge) && !String.IsNullOrEmpty(comment))
             {
                 var badgesender = new UserDAO()[sender].User_Id;
-                var badgereceiver = new UserDAO()[receiver].User_Id;
+                var badgeReceiver = new UserDAO()[receiver].User_Id;
                 var sentbadge = new BadgeDAO()[badge].Badge_Id;
                 var sendcomment = comment;
                 var datetime = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
 
                 using(IDbConnection conn = new SqlConnection(connectionString))
                 {
-                    string sql = @"INSERT INTO BadgeTransaction (sender, receiver, Badge_Id, BTrans_Date, Badge_Comment) 
-                                    VALUES ( @badgesender, @badgereceiver, @sentbadge.Badge_Id, @datetime, @sendcomment)";
-                    return conn.Execute(sql, new { badgesender, badgereceiver, sentbadge, datetime, sendcomment});
+                    string sql = @"INSERT INTO BadgeTransaction (Sender, Receiver, Badge_Id, BTrans_Date, Badge_Comment) 
+                                    VALUES ( @badgesender, @badgeReceiver, @sentbadge, @datetime, @sendcomment)";
+                    return conn.Execute(sql, new { badgesender, badgeReceiver , sentbadge, datetime, sendcomment});
                 }
             }
             else
             {
                 throw new Exception("Failed to send the badge. One or more parameters are wrong.");
             }
-
-            return 1;
         }
 
     }
