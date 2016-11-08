@@ -68,6 +68,8 @@
     <None Include="Data\BadgeSystemPeople.csv" />
     <None Include="Data\FacultyStudentBadges.csv" />
     <None Include="Data\StaffStudentBadges.csv" />
+    <None Include="Data\StudentPeerBadges.csv" />
+    <None Include="Data\StudentSelfValues.csv" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

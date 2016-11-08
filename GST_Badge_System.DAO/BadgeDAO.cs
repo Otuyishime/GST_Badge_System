@@ -7,88 +7,142 @@ using CsvHelper;
 
 namespace GST_Badge_System.DAO
 {
-    /*
-     This class will be used to read/write all the badge data from the data database
-     */
-    public class BadgeDAO //: IcrudOperations<Badge>
-    {
-        public Badge create(Badge element)
+	/*
+	 This class will be used to read/write all the badge data from the data database
+	 */
+	public class BadgeDAO //: IcrudOperations<Badge>
+	{
+		private string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=gst_badge_system;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
+		public Badge create(Badge element)
+		{
+			throw new NotImplementedException();
+		}
+
+		public int delete(string id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public List<Badge> list()
+		{
+			throw new NotImplementedException();
+		}
+
+		public Badge retrieve(string id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Badge update(Badge element)
+		{
+			throw new NotImplementedException();
+		}
+
+		public List<Badge> ImportBadges(string filePath)
+		{
+			List<Badge> badges = new List<Badge>();
+
+			// Read the file and display it line by line.
+			using (System.IO.StreamReader file = new System.IO.StreamReader(filePath))
+			{
+				var csv = new CsvReader(file);
+
+				while (csv.Read())
+				{
+					Badge temp_badge = new Badge();
+
+					var number = csv.GetField<int>("Number");
+					var name = csv.GetField<string>("Name");
+					var descript = csv.GetField<string>("Summary");
+					var dateActive = csv.GetField<string>("Date Activated");
+					var dateRetire = csv.GetField<string>("Date Retired");
+					var notes = csv.GetField<string>("Notes");
+					var imageURL = csv.GetField<string>("Image website address");
+
+					temp_badge.Badge_Id = number;
+					temp_badge.Badge_Name = name;
+					temp_badge.Badge_Descript = descript;
+					temp_badge.Badge_Image = imageURL;
+
+					if (!String.IsNullOrEmpty(dateActive))
+					{
+						temp_badge.Badge_ActivateDate = Convert.ToDateTime(dateActive);
+					}
+
+					if (!String.IsNullOrEmpty(dateRetire))
+					{
+						temp_badge.Badge_RetireDate = Convert.ToDateTime(dateRetire);
+					}
+
+					if (!String.IsNullOrEmpty(notes))
+					{
+						temp_badge.Badge_Notes = notes;
+					}
+
+					// add the badge to the list
+					badges.Add(temp_badge);
+				}
+			}
+
+			return badges;
+		}
+
+        // push badges to database
+        private void pushBadgeHelper(string filepath2)
         {
-            throw new NotImplementedException();
+
         }
 
-        public int delete(string id)
-        {
-            throw new NotImplementedException();
-        }
+		// upload badges to the database
+		public int uploadBadges()
+		{
+			using (var conn = new SqlConnection(connectionString))
+			{
+				string image, name, descript, notes, activedate, retiredate;
+				int number, typeid, givetypeid, statusid;
+				  
+				// get the badge give type
+				// Student to peer
+				foreach(Badge badge in ImportBadges(""))
+				{
+					number = badge.Badge_Id;
+					name = badge.Badge_Name;
+					descript = badge.Badge_Descript;
+					notes = badge.Badge_Notes;
+					image = badge.Badge_Image;
+					activedate = badge.Badge_ActivateDate.ToShortDateString();
+					givetypeid = new BadgeGiveTypeDAO()["Student to peer"].BGT_Id;
+					statusid = new BadgeStatusDAO()["Active"].BS_Id;
+                    retiredate = null;
 
-        public List<Badge> list()
-        {
-            throw new NotImplementedException();
-        }
 
-        public Badge retrieve(string id)
-        {
-            throw new NotImplementedException();
-        }
+					if ( badge.Badge_RetireDate != null)
+					{
+						retiredate = badge.Badge_RetireDate.ToShortDateString();
+						statusid = new BadgeStatusDAO()["DeActivated"].BS_Id;
+					}
 
-        public Badge update(Badge element)
-        {
-            throw new NotImplementedException();
-        }
+					string sql = @"INSERT INTO Badge (Badge_Id, Badge_Name, Badge_Descript, Badge_ActivateDate, Badge_RetireDate, 
+									Badge_Notes, Badge_Image, BadgeGiveType, BadgeStatus) 
+									VALUES ( @number, @name, @descript, @activedate, @retiredate, @notes, @image, @givetypeid,
+												@statusid);";
+					conn.Execute(sql, new { number, name, descript, activedate, retiredate, notes, image, givetypeid, statusid });
+				}
 
-        public List<Badge> ImportBadges(string filePath)
-        {
-            List<Badge> badges = new List<Badge>();
+				// Student to self
+				int StudToSelf_Badge_Id = new BadgeGiveTypeDAO()["Student to self"].BGT_Id;
 
-            // Read the file and display it line by line.
-            using (System.IO.StreamReader file = new System.IO.StreamReader(filePath))
-            {
-                var csv = new CsvReader(file);
 
-                while (csv.Read())
-                {
-                    Badge temp_badge = new Badge();
+				// Faculty to student
+				int FacToStud_Badge_Id = new BadgeGiveTypeDAO()["Faculty to student"].BGT_Id;
 
-                    var number = csv.GetField<int>("Number");
-                    var name = csv.GetField<string>("Name");
-                    var descript = csv.GetField<string>("Summary");
-                    var dateActive = csv.GetField<string>("Date Activated");
-                    var dateRetire = csv.GetField<string>("Date Retired");
-                    var notes = csv.GetField<string>("Notes");
-                    var imageURL = csv.GetField<string>("Image website address");
 
-                    temp_badge.Badge_Id = number;
-                    temp_badge.Badge_Name = name;
-                    temp_badge.Badge_Descript = descript;
-                    temp_badge.Badge_Image = imageURL;
+				// Staff to student
+				int StaffToStud_Badge_Id = new BadgeGiveTypeDAO()["Staff to student"].BGT_Id;
 
-                    if (!String.IsNullOrEmpty(dateActive))
-                    {
-                        temp_badge.Badge_ActivateDate = Convert.ToDateTime(dateActive);
-                    }
-
-                    if (!String.IsNullOrEmpty(dateRetire))
-                    {
-                        temp_badge.Badge_RetireDate = Convert.ToDateTime(dateRetire);
-                    }
-
-                    if (!String.IsNullOrEmpty(notes))
-                    {
-                        temp_badge.Badge_Notes = notes;
-                    }
-
-                    // add the badge to the list
-                    badges.Add(temp_badge);
-                }
-            }
-
-            return badges;
-        }
-
-        public int uploadBadges()
-        {
-            return 1;
-        }
-    }
+			}
+			return 1;
+		}
+	}
 }

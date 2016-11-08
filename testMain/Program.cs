@@ -11,9 +11,8 @@ namespace testMain
     {
         static void Main(string[] args)
         {
-            BadgeDAO badgedao = new BadgeDAO();
-            int actual = badgedao.ImportBadges(@"C:\Users\olivi\OneDrive\Documents\Intro Software Tools\Projects\GST_Badge_System\GST_Badge_System\GST_Badge_System.DAO\Data\StaffStudentBadges.csv").Count;
-            Console.WriteLine("Num elements: " + actual);
+            int StudToPeer_Badge_Id = new BadgeGiveTypeDAO()["Student to peer"].BGT_Id;
+            Console.WriteLine("Id: " + StudToPeer_Badge_Id);
         }
     }
 }
