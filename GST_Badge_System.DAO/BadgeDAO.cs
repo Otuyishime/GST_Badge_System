@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using Dapper;
 using System.Collections.Generic;
 using CsvHelper;
+using System.Data;
 
 namespace GST_Badge_System.DAO
 {
@@ -88,58 +89,56 @@ namespace GST_Badge_System.DAO
 			return badges;
 		}
 
-        // push badges to database
-        private void pushBadgeHelper(string filepath2)
-        {
+		// push badges to database
+		private void pushBadgeHelper(IDbConnection conn, string badgetypename, string filepath2)
+		{
+			foreach (Badge badge in ImportBadges(""))
+			{
+				string image, name, descript, notes, activedate, retiredate;
+				int number, typeid, givetypeid, statusid;
 
-        }
+				number = badge.Badge_Id;
+				name = badge.Badge_Name;
+				descript = badge.Badge_Descript;
+				notes = badge.Badge_Notes;
+				image = badge.Badge_Image;
+				activedate = badge.Badge_ActivateDate.ToShortDateString();
+				givetypeid = new BadgeGiveTypeDAO()[badgetypename].BGT_Id;
+				statusid = new BadgeStatusDAO()["Active"].BS_Id;
+				retiredate = null;
+
+
+				if (badge.Badge_RetireDate != null)
+				{
+					retiredate = badge.Badge_RetireDate.ToShortDateString();
+					statusid = new BadgeStatusDAO()["DeActivated"].BS_Id;
+				}
+
+				string sql = @"INSERT INTO Badge (Badge_Id, Badge_Name, Badge_Descript, Badge_ActivateDate, Badge_RetireDate, 
+									Badge_Notes, Badge_Image, BadgeGiveType, BadgeStatus) 
+									VALUES ( @number, @name, @descript, @activedate, @retiredate, @notes, @image, @givetypeid,
+												@statusid);";
+				conn.Execute(sql, new { number, name, descript, activedate, retiredate, notes, image, givetypeid, statusid });
+			}
+		}
 
 		// upload badges to the database
 		public int uploadBadges()
 		{
 			using (var conn = new SqlConnection(connectionString))
 			{
-				string image, name, descript, notes, activedate, retiredate;
-				int number, typeid, givetypeid, statusid;
-				  
 				// get the badge give type
 				// Student to peer
-				foreach(Badge badge in ImportBadges(""))
-				{
-					number = badge.Badge_Id;
-					name = badge.Badge_Name;
-					descript = badge.Badge_Descript;
-					notes = badge.Badge_Notes;
-					image = badge.Badge_Image;
-					activedate = badge.Badge_ActivateDate.ToShortDateString();
-					givetypeid = new BadgeGiveTypeDAO()["Student to peer"].BGT_Id;
-					statusid = new BadgeStatusDAO()["Active"].BS_Id;
-                    retiredate = null;
-
-
-					if ( badge.Badge_RetireDate != null)
-					{
-						retiredate = badge.Badge_RetireDate.ToShortDateString();
-						statusid = new BadgeStatusDAO()["DeActivated"].BS_Id;
-					}
-
-					string sql = @"INSERT INTO Badge (Badge_Id, Badge_Name, Badge_Descript, Badge_ActivateDate, Badge_RetireDate, 
-									Badge_Notes, Badge_Image, BadgeGiveType, BadgeStatus) 
-									VALUES ( @number, @name, @descript, @activedate, @retiredate, @notes, @image, @givetypeid,
-												@statusid);";
-					conn.Execute(sql, new { number, name, descript, activedate, retiredate, notes, image, givetypeid, statusid });
-				}
+				pushBadgeHelper(conn, "Student to peer", "");
 
 				// Student to self
-				int StudToSelf_Badge_Id = new BadgeGiveTypeDAO()["Student to self"].BGT_Id;
-
+				pushBadgeHelper(conn, "Student to self", "");
 
 				// Faculty to student
-				int FacToStud_Badge_Id = new BadgeGiveTypeDAO()["Faculty to student"].BGT_Id;
-
+				pushBadgeHelper(conn, "Faculty to student", "");
 
 				// Staff to student
-				int StaffToStud_Badge_Id = new BadgeGiveTypeDAO()["Staff to student"].BGT_Id;
+				pushBadgeHelper(conn, "Staff to student", "");
 
 			}
 			return 1;
