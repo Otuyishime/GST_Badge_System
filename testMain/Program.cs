@@ -11,8 +11,9 @@ namespace testMain
     {
         static void Main(string[] args)
         {
-            int StudToPeer_Badge_Id = new BadgeGiveTypeDAO()["Student to peer"].BGT_Id;
-            Console.WriteLine("Id: " + StudToPeer_Badge_Id);
+            //BadgeDAO bdao = new BadgeDAO();
+            //bdao.uploadBadges();
+            
         }
     }
 }

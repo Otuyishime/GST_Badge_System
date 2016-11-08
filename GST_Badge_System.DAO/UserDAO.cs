@@ -11,7 +11,7 @@ namespace GST_Badge_System.DAO
     /*
      This class will be used to read/write all the user data from the data database
      */
-    public class UserDAO// : IcrudOperations<User>
+    public class UserDAO
     {
         private string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=gst_badge_system;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 

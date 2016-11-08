@@ -52,6 +52,7 @@
     <Compile Include="BadgeDAO.cs" />
     <Compile Include="BadgeGiveTypeDAO.cs" />
     <Compile Include="BadgeStatusDAO.cs" />
+    <Compile Include="BadgeTransactionDAO.cs" />
     <Compile Include="BadgeTypeDAO.cs" />
     <Compile Include="IcrudOperations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -65,11 +66,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Data\Faculty-Student.csv" />
+    <None Include="Data\Staff-Student.csv" />
+    <None Include="Data\Student-Peer.csv" />
+    <None Include="Data\Student-Self.csv" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

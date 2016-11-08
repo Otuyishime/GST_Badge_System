@@ -53,9 +53,9 @@ namespace GST_Badge_System.DAO
 				{
 					Badge temp_badge = new Badge();
 
-					var number = csv.GetField<int>("Number");
-					var name = csv.GetField<string>("Name");
-					var descript = csv.GetField<string>("Summary");
+					var number = csv.GetField<int>("Badge#");
+					var name = csv.GetField<string>("Badge Name");
+					var descript = csv.GetField<string>("Badge Summary");
 					var dateActive = csv.GetField<string>("Date Activated");
 					var dateRetire = csv.GetField<string>("Date Retired");
 					var notes = csv.GetField<string>("Notes");
@@ -70,8 +70,8 @@ namespace GST_Badge_System.DAO
 					{
 						temp_badge.Badge_ActivateDate = Convert.ToDateTime(dateActive);
 					}
-
-					if (!String.IsNullOrEmpty(dateRetire))
+					
+					if (dateRetire != "")
 					{
 						temp_badge.Badge_RetireDate = Convert.ToDateTime(dateRetire);
 					}
@@ -92,7 +92,8 @@ namespace GST_Badge_System.DAO
 		// push badges to database
 		private void pushBadgeHelper(IDbConnection conn, string badgetypename, string filepath2)
 		{
-			foreach (Badge badge in ImportBadges(""))
+			foreach (Badge badge in ImportBadges(filepath2))
+
 			{
 				string image, name, descript, notes, activedate, retiredate;
 				int number, typeid, givetypeid, statusid;
@@ -107,18 +108,18 @@ namespace GST_Badge_System.DAO
 				statusid = new BadgeStatusDAO()["Active"].BS_Id;
 				retiredate = null;
 
-
-				if (badge.Badge_RetireDate != null)
+				DateTime flag = new DateTime();
+				if (badge.Badge_RetireDate != flag)
 				{
 					retiredate = badge.Badge_RetireDate.ToShortDateString();
 					statusid = new BadgeStatusDAO()["DeActivated"].BS_Id;
 				}
 
-				string sql = @"INSERT INTO Badge (Badge_Id, Badge_Name, Badge_Descript, Badge_ActivateDate, Badge_RetireDate, 
+				string sql = @"INSERT INTO Badge (Badge_Name, Badge_Descript, Badge_ActivateDate, Badge_RetireDate, 
 									Badge_Notes, Badge_Image, BadgeGiveType, BadgeStatus) 
-									VALUES ( @number, @name, @descript, @activedate, @retiredate, @notes, @image, @givetypeid,
+									VALUES ( @name, @descript, @activedate, @retiredate, @notes, @image, @givetypeid,
 												@statusid);";
-				conn.Execute(sql, new { number, name, descript, activedate, retiredate, notes, image, givetypeid, statusid });
+				conn.Execute(sql, new {name, descript, activedate, retiredate, notes, image, givetypeid, statusid });
 			}
 		}
 
@@ -129,16 +130,20 @@ namespace GST_Badge_System.DAO
 			{
 				// get the badge give type
 				// Student to peer
-				pushBadgeHelper(conn, "Student to peer", "");
+				string path = @"C:\Users\olivi\OneDrive\Documents\Intro Software Tools\Projects\GST_Badge_System\GST_Badge_System\GST_Badge_System.DAO\Data\Student-Peer.csv";
+				pushBadgeHelper(conn, "Student to peer", path);
 
 				// Student to self
-				pushBadgeHelper(conn, "Student to self", "");
+				path = @"C:\Users\olivi\OneDrive\Documents\Intro Software Tools\Projects\GST_Badge_System\GST_Badge_System\GST_Badge_System.DAO\Data\Student-Self.csv";
+				pushBadgeHelper(conn, "Student to self", path);
 
 				// Faculty to student
-				pushBadgeHelper(conn, "Faculty to student", "");
+				path = @"C:\Users\olivi\OneDrive\Documents\Intro Software Tools\Projects\GST_Badge_System\GST_Badge_System\GST_Badge_System.DAO\Data\Faculty-Student.csv";
+				pushBadgeHelper(conn, "Faculty to student", path);
 
 				// Staff to student
-				pushBadgeHelper(conn, "Staff to student", "");
+				path = @"C:\Users\olivi\OneDrive\Documents\Intro Software Tools\Projects\GST_Badge_System\GST_Badge_System\GST_Badge_System.DAO\Data\Staff-Student.csv";
+				pushBadgeHelper(conn, "Staff to student", path);
 
 			}
 			return 1;
