@@ -15,6 +15,19 @@ namespace GST_Badge_System.DAO
     {
         private string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=gst_badge_system;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
+        // add a list of users to be used as an indexer
+        private List<User> userlist;
+
+        // add an indexer
+        public User this[string userstr]
+        {
+            get
+            {
+                userlist = list();
+                return userlist.FirstOrDefault((u) => u.User_Name == userstr || u.User_Email == userstr);
+            }
+        }
+
         public User create(User user)
         {
             if (user == null)

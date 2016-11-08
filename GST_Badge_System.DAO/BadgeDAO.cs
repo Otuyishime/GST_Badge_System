@@ -5,6 +5,7 @@ using Dapper;
 using System.Collections.Generic;
 using CsvHelper;
 using System.Data;
+using System.Linq;
 
 namespace GST_Badge_System.DAO
 {
@@ -14,6 +15,19 @@ namespace GST_Badge_System.DAO
 	public class BadgeDAO //: IcrudOperations<Badge>
 	{
 		private string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=gst_badge_system;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
+		// add a list of users to be used as an indexer
+		private List<Badge> badgelist;
+
+		// add an indexer
+		public Badge this[string badgename]
+		{
+			get
+			{
+				badgelist = list();
+				return badgelist.FirstOrDefault((b) => b.Badge_Name == badgename);
+			}
+		}
 
 		public Badge create(Badge element)
 		{
@@ -27,7 +41,10 @@ namespace GST_Badge_System.DAO
 
 		public List<Badge> list()
 		{
-			throw new NotImplementedException();
+			using (IDbConnection conn = new SqlConnection(connectionString))
+			{
+				return conn.Query<Badge>("select * from Badge").AsList();
+			}
 		}
 
 		public Badge retrieve(string id)

@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Data\BadgeSystemPeople.csv" />
     <None Include="Data\Faculty-Student.csv" />
     <None Include="Data\Staff-Student.csv" />
     <None Include="Data\Student-Peer.csv" />

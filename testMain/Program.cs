@@ -11,9 +11,9 @@ namespace testMain
     {
         static void Main(string[] args)
         {
-            //BadgeDAO bdao = new BadgeDAO();
-            //bdao.uploadBadges();
-            
+            BadgeTransactionDAO btrdao = new BadgeTransactionDAO();
+            btrdao.addBadgeTransaction(sender: "Olivier Tuyishime", receiver: "Jesus Arredondo", badge: "Thumbs Up", comment: "Excellent job!!");
+            Console.WriteLine(DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"));   
         }
     }
 }
