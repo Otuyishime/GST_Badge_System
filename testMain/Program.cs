@@ -12,7 +12,7 @@ namespace testMain
         static void Main(string[] args)
         {
             BadgeTransactionDAO btrdao = new BadgeTransactionDAO();
-            btrdao.addBadgeTransaction(sender: "Olivier Tuyishime", receiver: "Jesus Arredondo", badge: "Thumbs Up", comment: "Excellent job!!"); 
+            Console.WriteLine(btrdao.retrieveBadgeTransactions()[0].Badge.Badge_Status.BS_Name);
         }
     }
 }
