@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Dapper;
 using GST_Badge_System.Model;
 using System.Data;
+using System.Linq;
 using System.Data.SqlClient;
 
 namespace GST_Badge_System.DAO
@@ -10,6 +11,19 @@ namespace GST_Badge_System.DAO
     public class BadgeTypeDAO
     {
         private string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=gst_badge_system;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
+        // add a list of badges to be used as an indexer
+        private List<BadgeType> badgetypelist;
+
+        // add an indexer
+        public BadgeType this[string badgetypename]
+        {
+            get
+            {
+                badgetypelist = retrieveBadgeTypes();
+                return badgetypelist.FirstOrDefault((bt) => bt.BT_Name == badgetypename);
+            }
+        }
 
         // Retrieve badge types
         public List<BadgeType> retrieveBadgeTypes()

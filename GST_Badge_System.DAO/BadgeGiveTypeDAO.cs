@@ -4,12 +4,26 @@ using Dapper;
 using GST_Badge_System.Model;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace GST_Badge_System.DAO
 {
     public class BadgeGiveTypeDAO
     {
         private string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=gst_badge_system;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
+        // add a list of badges to be used as an indexer
+        private List<BadgeGiveType> badgegivetypelist;
+
+        // add an indexer
+        public BadgeGiveType this[string badgegivetypename]
+        {
+            get
+            {
+                badgegivetypelist = retrieveBadgeGiveTypes();
+                return badgegivetypelist.FirstOrDefault((bt) => bt.BGT_Name == badgegivetypename);
+            }
+        }
 
         // Retrieve badge give types
         public List<BadgeGiveType> retrieveBadgeGiveTypes()

@@ -4,12 +4,26 @@ using Dapper;
 using GST_Badge_System.Model;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace GST_Badge_System.DAO
 {
     public class BadgeStatusDAO
     {
         private string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=gst_badge_system;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
+        // add a list of badge statuses to be used as an indexer
+        private List<BadgeStatus> badgestatuslist;
+
+        // add an indexer
+        public BadgeStatus this[string badgestatusname]
+        {
+            get
+            {
+                badgestatuslist = retrieveBadgeTypes();
+                return badgestatuslist.FirstOrDefault((bt) => bt.BS_Name == badgestatusname);
+            }
+        }
 
         // Retrieve badge statuses
         public List<BadgeStatus> retrieveBadgeTypes()
