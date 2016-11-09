@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GST_Badge_System.DAO;
+using GST_Badge_System.Model;
 
 namespace testMain
 {
@@ -11,8 +12,6 @@ namespace testMain
     {
         static void Main(string[] args)
         {
-            BadgeTransactionDAO btrdao = new BadgeTransactionDAO();
-            Console.WriteLine(btrdao.retrieveBadgeTransactions()[0].Badge.Badge_Status.BS_Name);
         }
     }
 }

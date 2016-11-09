@@ -45,6 +45,7 @@
     <Compile Include="BadgeStatus.cs" />
     <Compile Include="BadgeTransaction.cs" />
     <Compile Include="BadgeType.cs" />
+    <Compile Include="MailHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
