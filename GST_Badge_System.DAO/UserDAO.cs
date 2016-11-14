@@ -157,7 +157,7 @@ namespace GST_Badge_System.DAO
             List<User> users = new List<User>();
 
             // Read the file and display it line by line.
-            string fileName = @"C:\Users\olivi\OneDrive\Documents\Intro Software Tools\Projects\GST_Badge_System\GST_Badge_System\GST_Badge_System.DAO\Data\BadgeSystemPeople.csv";
+            string fileName = @"C:\GST_Badge_System.DAO\Data\BadgeSystemPeople.csv";
 
             using (System.IO.StreamReader file = new System.IO.StreamReader(fileName))
             {

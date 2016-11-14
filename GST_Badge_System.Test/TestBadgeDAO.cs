@@ -12,7 +12,7 @@ namespace GST_Badge_System.Test
             int expected = 15;
 
             DAO.BadgeDAO badgedao = new DAO.BadgeDAO();
-            int actual = badgedao.ImportBadges(@"C:\Users\olivi\OneDrive\Documents\Intro Software Tools\Projects\GST_Badge_System\GST_Badge_System\GST_Badge_System.DAO\Data\Staff-Student.csv").Count;
+            int actual = badgedao.ImportBadges(@"C:\Users\Yuvette\Source\Repos\GST_Badge_System\GST_Badge_System.DAO\Data\Staff-Student.csv").Count;
 
             Assert.AreEqual(expected, actual);
         }
