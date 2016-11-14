@@ -16,17 +16,21 @@ namespace GST_Badge_System.Model
                 mail.Subject = "Test Mail - 1";
                 mail.Body = "Mail with attachment";
 
-                System.Net.Mail.Attachment attachment;
-                string uriPath = "http://www.oc.edu/academics/graduate/theology/images/digital-badge-images/staff-student-badges/animated-gif-images/401%20Early%20Enroller.gif";
-                string localPath = new Uri(uriPath).LocalPath;
-                attachment = new System.Net.Mail.Attachment(localPath);
-                mail.Attachments.Add(attachment);
+                //System.Net.Mail.Attachment attachment;
+                //string uriPath = "https://assets.goodstatic.com/s3/magazine/others/meta/goodlogosquare.png";
+                //string localPath = new Uri(uriPath).LocalPath;
+                //attachment = new System.Net.Mail.Attachment(localPath);
+                //mail.Attachments.Add(attachment);
 
-                SmtpServer.Port = 587;
+                
+                SmtpServer.UseDefaultCredentials = false;
+                SmtpServer.Port = 585;
                 SmtpServer.Credentials = new System.Net.NetworkCredential(sender, "anonym0u$1");
                 SmtpServer.EnableSsl = true;
 
                 SmtpServer.Send(mail);
+
+                Console.WriteLine("The message was sent!!!");
             }
             catch (Exception ex)
             {

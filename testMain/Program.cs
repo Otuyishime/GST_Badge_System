@@ -12,9 +12,8 @@ namespace testMain
     {
         static void Main(string[] args)
         {
+            //MailHelper.SendBadgeNotification("olix.tech@gmail.com", "oliviertyishime@gmail.com");
             
-
-          
         }
     }
 }

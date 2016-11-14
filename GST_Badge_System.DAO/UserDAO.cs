@@ -5,6 +5,7 @@ using Dapper;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.IO;
 
 namespace GST_Badge_System.DAO
 {
