@@ -5,9 +5,8 @@ using Dapper;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Web.Hosting;
 using System.IO;
-using System.Reflection;
+using System.Web;
 
 namespace GST_Badge_System.DAO
 {
@@ -159,12 +158,10 @@ namespace GST_Badge_System.DAO
             string line;
             List<User> users = new List<User>();
 
-            string dirpath = Directory.GetCurrentDirectory();
-            string path = Directory.GetParent(dirpath).FullName;
-            path = Directory.GetParent(path).FullName;
-            path = Directory.GetParent(path).FullName+@"\GST_Badge_System.DAO\Data\BadgeSystemPeople.csv";
+            // Read the file and display it line by line.
+            string fileName = GetDirectory.getFilePath() + @"\GST_Badge_System.DAO\Data\BadgeSystemPeople.csv";
 
-            using (System.IO.StreamReader file = new System.IO.StreamReader(path))
+            using (System.IO.StreamReader file = new System.IO.StreamReader(fileName))
             {
                 file.ReadLine();    // Read to get rid of the first line
                 while ((line = file.ReadLine()) != null)

@@ -55,7 +55,7 @@
     <Compile Include="BadgeStatusDAO.cs" />
     <Compile Include="BadgeTransactionDAO.cs" />
     <Compile Include="BadgeTypeDAO.cs" />
-    <Compile Include="IcrudOperations.cs" />
+    <Compile Include="GetDirectory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserDAO.cs" />
   </ItemGroup>

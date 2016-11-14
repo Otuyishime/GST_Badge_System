@@ -6,8 +6,6 @@ using System.Collections.Generic;
 using CsvHelper;
 using System.Data;
 using System.Linq;
-using System.Web.Hosting;
-using System.IO;
 
 namespace GST_Badge_System.DAO
 {
@@ -131,7 +129,7 @@ namespace GST_Badge_System.DAO
 
 			{
 				string image, name, descript, notes, activedate, retiredate;
-				int number, typeid, givetypeid, statusid;
+				int number, givetypeid, statusid;
 
 				number = badge.Badge_Id;
 				name = badge.Badge_Name;
@@ -163,28 +161,22 @@ namespace GST_Badge_System.DAO
 		{
 			using (var conn = new SqlConnection(connectionString))
 			{
-                // get the badge give type
-                // Student to peer
-
-                string dirpath = Directory.GetCurrentDirectory();
-                string path = Directory.GetParent(dirpath).FullName;
-                path = Directory.GetParent(path).FullName;
-                string directorypath = Directory.GetParent(path).FullName;
-
-                string filepath =directorypath+@"\GST_Badge_System.DAO\Data\Student-Peer.csv";
-				pushBadgeHelper(conn, "Student to peer", filepath);
+				// get the badge give type
+				// Student to peer
+				string path = GetDirectory.getFilePath() + @"\GST_Badge_System.DAO\Data\Student-Peer.csv";
+				pushBadgeHelper(conn, "Student to peer", path);
 
 				// Student to self
-				filepath = directorypath + @"\GST_Badge_System.DAO\Data\Student-Self.csv";
-				pushBadgeHelper(conn, "Student to self", filepath);
+				path = GetDirectory.getFilePath() + @"\GST_Badge_System.DAO\Data\Student-Self.csv";
+				pushBadgeHelper(conn, "Student to self", path);
 
 				// Faculty to student
-				filepath = directorypath + @"\GST_Badge_System.DAO\Data\Faculty-Student.csv";
-				pushBadgeHelper(conn, "Faculty to student", filepath);
+				path = GetDirectory.getFilePath() + @"\GST_Badge_System.DAO\Data\Faculty-Student.csv";
+				pushBadgeHelper(conn, "Faculty to student", path);
 
 				// Staff to student
-				filepath = directorypath + @"\GST_Badge_System.DAO\Data\Staff-Student.csv";
-				pushBadgeHelper(conn, "Staff to student", filepath);
+				path = GetDirectory.getFilePath() + @"\GST_Badge_System.DAO\Data\Staff-Student.csv";
+				pushBadgeHelper(conn, "Staff to student", path);
 
 			}
 			return 1;

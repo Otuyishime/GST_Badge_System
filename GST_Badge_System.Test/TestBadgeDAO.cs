@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
+using GST_Badge_System.DAO;
 
 namespace GST_Badge_System.Test
 {
@@ -11,13 +11,9 @@ namespace GST_Badge_System.Test
         public void TestImportBadges()
         {
             int expected = 15;
-            string dirpath = Directory.GetCurrentDirectory();
-            string path = Directory.GetParent(dirpath).FullName;
-            path = Directory.GetParent(path).FullName;
-            path = Directory.GetParent(path).FullName;
 
             DAO.BadgeDAO badgedao = new DAO.BadgeDAO();
-            int actual = badgedao.ImportBadges(path+@"\GST_Badge_System.DAO\Data\Staff-Student.csv").Count;
+            int actual = badgedao.ImportBadges(GetDirectory.getFilePath() + @"\GST_Badge_System.DAO\Data\Staff-Student.csv").Count;
 
             Assert.AreEqual(expected, actual);
         }

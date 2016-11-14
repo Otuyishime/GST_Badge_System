@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GST_Badge_System.Test", "GS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testMain", "testMain\testMain.csproj", "{5DD5EA42-9082-4573-92FD-8C4BFF7D7376}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GSTBadgeSystem", "..\GSTBadgeSystem\GSTBadgeSystem\GSTBadgeSystem\GSTBadgeSystem.csproj", "{46ABB1F5-AE87-4701-BAB9-B2C868C598F1}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{5DD5EA42-9082-4573-92FD-8C4BFF7D7376}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DD5EA42-9082-4573-92FD-8C4BFF7D7376}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DD5EA42-9082-4573-92FD-8C4BFF7D7376}.Release|Any CPU.Build.0 = Release|Any CPU
-		{46ABB1F5-AE87-4701-BAB9-B2C868C598F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{46ABB1F5-AE87-4701-BAB9-B2C868C598F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{46ABB1F5-AE87-4701-BAB9-B2C868C598F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{46ABB1F5-AE87-4701-BAB9-B2C868C598F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
