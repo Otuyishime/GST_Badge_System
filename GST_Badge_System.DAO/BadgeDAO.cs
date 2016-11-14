@@ -129,7 +129,7 @@ namespace GST_Badge_System.DAO
 
 			{
 				string image, name, descript, notes, activedate, retiredate;
-				int number, typeid, givetypeid, statusid;
+				int number, givetypeid, statusid;
 
 				number = badge.Badge_Id;
 				name = badge.Badge_Name;
