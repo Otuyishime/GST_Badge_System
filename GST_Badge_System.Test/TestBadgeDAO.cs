@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using GST_Badge_System.DAO;
 
 namespace GST_Badge_System.Test
 {
@@ -12,7 +13,7 @@ namespace GST_Badge_System.Test
             int expected = 15;
 
             DAO.BadgeDAO badgedao = new DAO.BadgeDAO();
-            int actual = badgedao.ImportBadges(@"C:\Users\olivi\OneDrive\Documents\Intro Software Tools\Projects\GST_Badge_System\GST_Badge_System\GST_Badge_System.DAO\Data\Staff-Student.csv").Count;
+            int actual = badgedao.ImportBadges(GetDirectory.getFilePath() + @"\GST_Badge_System.DAO\Data\Staff-Student.csv").Count;
 
             Assert.AreEqual(expected, actual);
         }

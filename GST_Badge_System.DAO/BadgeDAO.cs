@@ -163,19 +163,19 @@ namespace GST_Badge_System.DAO
 			{
 				// get the badge give type
 				// Student to peer
-				string path = @"C:\Users\olivi\OneDrive\Documents\Intro Software Tools\Projects\GST_Badge_System\GST_Badge_System\GST_Badge_System.DAO\Data\Student-Peer.csv";
+				string path = GetDirectory.getFilePath() + @"\GST_Badge_System.DAO\Data\Student-Peer.csv";
 				pushBadgeHelper(conn, "Student to peer", path);
 
 				// Student to self
-				path = @"C:\Users\olivi\OneDrive\Documents\Intro Software Tools\Projects\GST_Badge_System\GST_Badge_System\GST_Badge_System.DAO\Data\Student-Self.csv";
+				path = GetDirectory.getFilePath() + @"\GST_Badge_System.DAO\Data\Student-Self.csv";
 				pushBadgeHelper(conn, "Student to self", path);
 
 				// Faculty to student
-				path = @"C:\Users\olivi\OneDrive\Documents\Intro Software Tools\Projects\GST_Badge_System\GST_Badge_System\GST_Badge_System.DAO\Data\Faculty-Student.csv";
+				path = GetDirectory.getFilePath() + @"\GST_Badge_System.DAO\Data\Faculty-Student.csv";
 				pushBadgeHelper(conn, "Faculty to student", path);
 
 				// Staff to student
-				path = @"C:\Users\olivi\OneDrive\Documents\Intro Software Tools\Projects\GST_Badge_System\GST_Badge_System\GST_Badge_System.DAO\Data\Staff-Student.csv";
+				path = GetDirectory.getFilePath() + @"\GST_Badge_System.DAO\Data\Staff-Student.csv";
 				pushBadgeHelper(conn, "Staff to student", path);
 
 			}
