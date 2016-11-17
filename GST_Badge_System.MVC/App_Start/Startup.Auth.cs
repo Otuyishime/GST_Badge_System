@@ -58,11 +58,11 @@ namespace GST_Badge_System.MVC
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "90663573741-3sb39hrurro11so41e4e0mcmsh1q8au9.apps.googleusercontent.com",
+                ClientSecret = "gh1sL-DJCNFQjq-fEHSUV7k_"
+            });
         }
     }
 }

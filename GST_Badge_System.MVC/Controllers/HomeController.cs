@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace GST_Badge_System.MVC.Controllers
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
         public ActionResult Index()
